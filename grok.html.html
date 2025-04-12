@@ -1,0 +1,143 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>¡Bienvenido Abuelo!</title>
+    <style>
+        body {
+            margin: 0;
+            height: 100vh;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            font-family: Arial, sans-serif;
+            overflow: hidden;
+            background: linear-gradient(45deg, #ff6b6b, #4ecdc4, #45b7d1, #96ceb4);
+            background-size: 400%;
+            animation: gradient 15s ease infinite;
+        }
+
+        @keyframes gradient {
+            0% { background-position: 0% 50%; }
+            50% { background-position: 100% 50%; }
+            100% { background-position: 0% 50%; }
+        }
+
+        .sparkle {
+            position: absolute;
+            width: 5px;
+            height: 5px;
+            background: white;
+            border-radius: 50%;
+            opacity: 0.8;
+            animation: sparkle 2s infinite;
+        }
+
+        @keyframes sparkle {
+            0% { transform: scale(0); opacity: 0.8; }
+            50% { transform: scale(1); opacity: 0.4; }
+            100% { transform: scale(0); opacity: 0; }
+        }
+
+        .container {
+            text-align: center;
+            background: rgba(255, 255, 255, 0.9);
+            padding: 40px;
+            border-radius: 15px;
+            box-shadow: 0 0 20px rgba(0, 0, 0, 0.3);
+            max-width: 600px;
+            z-index: 1;
+        }
+
+        input {
+            padding: 10px;
+            font-size: 16px;
+            margin: 10px;
+            border: 2px solid #45b7d1;
+            border-radius: 5px;
+            outline: none;
+        }
+
+        button {
+            padding: 10px 20px;
+            font-size: 16px;
+            background-color: #ff6b6b;
+            color: white;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            transition: background-color 0.3s;
+        }
+
+        button:hover {
+            background-color: #e55a5a;
+        }
+
+        .message {
+            display: none;
+            margin-top: 20px;
+            font-size: 24px;
+            color: #333;
+        }
+
+        iframe {
+            margin-top: 20px;
+            border-radius: 10px;
+        }
+
+        .hidden {
+            display: none;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>¡Ingresa el Código Secreto!</h1>
+        <input type="text" id="passcode" placeholder="Código">
+        <button onclick="checkPasscode()">Enviar</button>
+        <div class="message" id="welcomeMessage">
+            <p>¡Gracias por venir a los Países Bajos, abuelo!</p>
+            <iframe id="youtubeVideo" width="560" height="315" frameborder="0" allow="autoplay; encrypted-media" allowfullscreen></iframe>
+        </div>
+    </div>
+
+    <script>
+        // Check passcode
+        function checkPasscode() {
+            const passcode = document.getElementById('passcode').value;
+            if (passcode === 'Naldo') {
+                document.getElementById('welcomeMessage').style.display = 'block';
+                document.getElementById('passcode').style.display = 'none';
+                document.querySelector('button').style.display = 'none';
+                document.querySelector('h1').style.display = 'none';
+                // Set YouTube video with autoplay
+                const youtubeFrame = document.getElementById('youtubeVideo');
+                youtubeFrame.src = 'https://www.youtube.com/embed/iKHXgEvoqXk?autoplay=1';
+            } else {
+                alert('¡Código incorrecto! Intenta de nuevo.');
+            }
+        }
+
+        // Create sparkles
+        function createSparkle() {
+            const sparkle = document.createElement('div');
+            sparkle.classList.add('sparkle');
+            sparkle.style.left = Math.random() * window.innerWidth + 'px';
+            sparkle.style.top = Math.random() * window.innerHeight + 'px';
+            document.body.appendChild(sparkle);
+            setTimeout(() => sparkle.remove(), 2000);
+        }
+
+        // Generate sparkles every 200ms
+        setInterval(createSparkle, 200);
+
+        // Allow Enter key to submit passcode
+        document.getElementById('passcode').addEventListener('keypress', function(e) {
+            if (e.key === 'Enter') {
+                checkPasscode();
+            }
+        });
+    </script>
+</body>
+</html>
